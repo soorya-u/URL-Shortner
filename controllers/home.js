@@ -2,7 +2,6 @@ const URL = require("../models/url");
 
 async function handleRedirectURL(req, res) {
   const shortId = req.params.shortId;
-  console.log(shortId)
   const entry = await URL.findOneAndUpdate(
     {
       shortId,
@@ -15,7 +14,6 @@ async function handleRedirectURL(req, res) {
       },
     }
   );
-  console.log(entry)
   res.redirect(entry.redirectURL);
 }
 
