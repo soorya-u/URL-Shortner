@@ -5,7 +5,7 @@ const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 
 // Importing Middlewares
-const { restrictToLoggedinUserOnly, checkAuth } = require("./middlewares/auth");
+const { checkForAuthentication, restrictTo } = require("./middlewares/auth");
 
 // Importing Routes
 const urlRoute = require("./routers/url");
@@ -32,17 +32,20 @@ connectMongo(process.env.DATABASE_URL).then(() =>
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 
-// Using Middleware
+// Using Builtin Middleware
 app.use(express.json()); // Middleware to Parse JSON
 app.use(express.urlencoded({ extended: false })); // Middleware to Parse Form Data
 app.use(cookieParser()); // Middleware to Parse Cookies
 
+// Using Defined Middleware
+app.use(checkForAuthentication);
+
 // Defining Routes
-app.use("/", checkAuth, staticRoute); // To Render Pages
+app.use("/", staticRoute); // To Render Pages
 
 app.use("/", homeRoute); //Home Route
 
-app.use("/url", restrictToLoggedinUserOnly, urlRoute); // URL Route
+app.use("/url", restrictTo(["NORMAL", "ADMIN"]), urlRoute); // URL Route
 
 app.use("/user", userRoute); // User Route
 

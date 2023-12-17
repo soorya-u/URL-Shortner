@@ -2,7 +2,6 @@ const URL = require("../models/url");
 
 // Rendering Home Page
 async function handleHomePage(req, res) {
-  if (!req.user) return res.redirect("/login");
   const allUrls = await URL.find({ createdBy: req.user._id });
   return res.render("home", { urls: allUrls });
 }
@@ -17,4 +16,10 @@ function handleLoginPage(req, res) {
   return res.render("login");
 }
 
-module.exports = { handleHomePage, handleSignupPage, handleLoginPage };
+// Rendering Admin Page
+async function handleAdminPage(req, res) {
+  const allUrls = await URL.find({});
+  return res.render("home", { urls: allUrls });
+}
+
+module.exports = { handleHomePage, handleSignupPage, handleLoginPage, handleAdminPage };
