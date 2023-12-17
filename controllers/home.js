@@ -15,7 +15,9 @@ async function handleRedirectURL(req, res) {
       },
     }
   );
-  res.redirect(entry.redirectURL);
+  try {
+    res.redirect(entry.redirectURL);
+  } catch (err) {}
 }
 
 module.exports = { handleRedirectURL };
