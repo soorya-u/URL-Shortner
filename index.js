@@ -2,6 +2,10 @@
 const express = require("express");
 const path = require("path");
 const dotenv = require("dotenv");
+const cookieParser = require("cookie-parser");
+
+// Importing Middlewares
+const { restrictToLoggedinUserOnly } = require("./middlewares/auth");
 
 // Importing Routes
 const urlRoute = require("./routers/url");
@@ -31,13 +35,14 @@ app.set("views", path.resolve("./views"));
 // Using Middleware
 app.use(express.json()); // Middleware to Parse JSON
 app.use(express.urlencoded({ extended: false })); // Middleware to Parse Form Data
+app.use(cookieParser()); // Middleware to Parse Cookies
 
 // Defining Routes
 app.use("/", staticRoute); // To Render Pages
 
 app.use("/", homeRoute); //Home Route
 
-app.use("/url", urlRoute); // URL Route
+app.use("/url", restrictToLoggedinUserOnly, urlRoute); // URL Route
 
 app.use("/user", userRoute); // User Route
 
