@@ -1,4 +1,3 @@
-const { v4: uuidv4 } = require("uuid"); // Importing v4 as uuidv4
 const User = require("../models/user");
 const { setUser } = require("../services/auth");
 
@@ -27,9 +26,8 @@ async function handleUserLogin(req, res) {
       message: "Invalid Username or Password",
     });
 
-  const sessionId = uuidv4();
-  setUser(sessionId, user);
-  res.cookie("uid", sessionId);
+  const token = setUser(user);
+  res.cookie("uid", token);
   return res.redirect("/");
 }
 
