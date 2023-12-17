@@ -18,10 +18,4 @@ async function handleRedirectURL(req, res) {
   res.redirect(entry.redirectURL);
 }
 
-// Handling Redirect Function
-async function handleHomePage(req, res) {
-  const allUrls = await URL.find({});
-  return res.render("home", { urls: allUrls });
-}
-
-module.exports = { handleRedirectURL, handleHomePage };
+module.exports = { handleRedirectURL };

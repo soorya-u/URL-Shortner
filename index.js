@@ -1,9 +1,15 @@
+// Importing Packages
 const express = require("express");
 const path = require("path");
 const dotenv = require("dotenv");
+
+// Importing Routes
 const urlRoute = require("./routers/url");
-const dynamicHomeRoute = require("./routers/home/dynamic");
-const staticHomeRoute = require("./routers/home/static");
+const homeRoute = require("./routers/home");
+const staticRoute = require("./routers/static");
+const userRoute = require("./routers/user");
+
+// Importing Database Connector
 const connectMongo = require("./connection");
 
 // Initialization
@@ -27,12 +33,14 @@ app.use(express.json()); // Middleware to Parse JSON
 app.use(express.urlencoded({ extended: false })); // Middleware to Parse Form Data
 
 // Defining Routes
-app.use("/", staticHomeRoute);
-app.use("/", dynamicHomeRoute);
+app.use("/", staticRoute);
+app.use("/", homeRoute);
 
 app.use("/url", urlRoute);
 
-// Listening
+app.use("/user", userRoute);
+
+// Listener
 app.listen(PORT, () =>
   console.log(`Server Started at http://localhost:${PORT}`)
 );

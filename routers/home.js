@@ -1,5 +1,5 @@
 const express = require("express");
-const { handleRedirectURL } = require("../../controllers/home");
+const { handleRedirectURL } = require("../controllers/home");
 
 const router = express.Router();
 
