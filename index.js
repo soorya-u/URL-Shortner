@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const urlRoute = require("./routers/url");
 const shortIdRoute = require("./routers/home");
+const staticRoute = require("./routers/static");
 const connectMongo = require("./connection");
 
 const app = express();
@@ -14,7 +15,10 @@ connectMongo("mongodb://127.0.0.1:27017/url-shortner").then(() =>
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 
-app.use(express.json());
+app.use(express.json()); // Middleware to Parse JSON
+app.use(express.urlencoded({ extended: false })); // Middleware to Parse Form Data
+
+app.use("/", staticRoute);
 
 app.use("/", shortIdRoute);
 

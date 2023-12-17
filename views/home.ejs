@@ -6,21 +6,46 @@
     <title>URL Shortner</title>
   </head>
   <body>
-    <table border="1" cellspacing="0" cellpadding="5">
-      <thead>
-        <th>Original URL</th>
-        <th>Shortened URL</th>
-        <th>Views</th>
-      </thead>
-      <tbody>
-        <% urls.forEach(url => { %>
-        <tr>
+    <h1>URL Shortner</h1>
+    <div>
+      <form method="POST" action="/url">
+        <label for="url">Enter your Original URL</label>
+        <input type="text" name="url" placeholder="https://example.com" />
+        <%# Same Variable as used in backend %>
+        <button type="submit">Generate</button>
+      </form>
+
+      <% if (locals.id) { %> <%# locals is Backend %>
+      <h3>
+        URL Generated:
+        <a href="redirect/<%= id %>"
+          >http://localhost:7000/redirect/<%= id %></a
+        >
+      </h3>
+      <% } %> <% if (locals.urls) { %>
+
+      <h2>All Generated URLs</h2>
+      <table border="1" cellspacing="0" cellpadding="5">
+        <thead>
+          <th>Sl. No.</th>
+          <th>Original URL</th>
+          <th>Shortened URL</th>
+          <th>Views</th>
+        </thead>
+        <tbody>
+          <% urls.forEach((url, index) => { %>
+          <tr>
+            <td><%= index+1 %></td>
             <td><%= url.redirectURL %></td>
-            <td><%= url.shortId %></td>
+            <td>
+              <a href="<%= "redirect/"+url.shortId %>"><%= url.shortId %></a>
+            </td>
             <td><%= url.visitHistory.length %></td>
-        </tr>
-        <% }) %>
-      </tbody>
-    </table>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+      <% } %>
+    </div>
   </body>
 </html>
