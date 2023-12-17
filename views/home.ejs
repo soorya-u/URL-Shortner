@@ -18,8 +18,8 @@
       <% if (locals.id) { %> <%# locals is Backend %>
       <h3>
         URL Generated:
-        <a href="redirect/<%= id %>"
-          >http://localhost:7000/redirect/<%= id %></a
+        <a href=<%= id %>
+          >http://localhost:7000/<%= id %></a
         >
       </h3>
       <% } %> <% if (locals.urls) { %>
@@ -38,7 +38,7 @@
             <td><%= index+1 %></td>
             <td><%= url.redirectURL %></td>
             <td>
-              <a href="<%= "redirect/"+url.shortId %>"><%= url.shortId %></a>
+              <a href="<%= url.shortId %>" target="_blank"><%= url.shortId %></a>
             </td>
             <td><%= url.visitHistory.length %></td>
           </tr>
