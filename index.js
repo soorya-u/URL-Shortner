@@ -33,12 +33,13 @@ app.use(express.json()); // Middleware to Parse JSON
 app.use(express.urlencoded({ extended: false })); // Middleware to Parse Form Data
 
 // Defining Routes
-app.use("/", staticRoute);
-app.use("/", homeRoute);
+app.use("/", staticRoute); // To Render Pages
 
-app.use("/url", urlRoute);
+app.use("/", homeRoute); //Home Route
 
-app.use("/user", userRoute);
+app.use("/url", urlRoute); // URL Route
+
+app.use("/user", userRoute); // User Route
 
 // Listener
 app.listen(PORT, () =>

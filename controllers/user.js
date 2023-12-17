@@ -1,5 +1,6 @@
 const User = require("../models/user");
 
+// Handling SignUp
 async function handleUserSignup(req, res) {
   const { firstName, lastName, email, password } = req.body;
   await User.create({
@@ -11,6 +12,7 @@ async function handleUserSignup(req, res) {
   return res.redirect("/");
 }
 
+// Handling Login
 async function handleUserLogin(req, res) {
   const { email, password } = req.body;
   const user = await User.findOne({
