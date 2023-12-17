@@ -16,11 +16,10 @@ async function handleGenerateShortURL(req, res) {
     shortId: shortID,
     redirectURL: body.url,
     visitedHistory: [],
+    createdBy: req.user._id,
   });
 
-  return res.render("home", {
-    id: shortID,
-  });
+  return res.redirect("/");
 }
 
 // Getting Analytics of Short URLs

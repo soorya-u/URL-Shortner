@@ -5,7 +5,7 @@ const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 
 // Importing Middlewares
-const { restrictToLoggedinUserOnly } = require("./middlewares/auth");
+const { restrictToLoggedinUserOnly, checkAuth } = require("./middlewares/auth");
 
 // Importing Routes
 const urlRoute = require("./routers/url");
@@ -38,7 +38,7 @@ app.use(express.urlencoded({ extended: false })); // Middleware to Parse Form Da
 app.use(cookieParser()); // Middleware to Parse Cookies
 
 // Defining Routes
-app.use("/", staticRoute); // To Render Pages
+app.use("/", checkAuth, staticRoute); // To Render Pages
 
 app.use("/", homeRoute); //Home Route
 

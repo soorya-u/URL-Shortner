@@ -2,7 +2,8 @@ const URL = require("../models/url");
 
 // Rendering Home Page
 async function handleHomePage(req, res) {
-  const allUrls = await URL.find({});
+  if (!req.user) return res.redirect("/login");
+  const allUrls = await URL.find({ createdBy: req.user._id });
   return res.render("home", { urls: allUrls });
 }
 
