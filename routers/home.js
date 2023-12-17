@@ -1,8 +1,10 @@
-const express = require('express');
-const { handleRedirectURL } = require("../controllers/home")
+const express = require("express");
+const { handleRedirectURL, handleHomePage } = require("../controllers/home");
 
-const router = express.Router()
+const router = express.Router();
 
-router.get('/:shortId', handleRedirectURL)
+router.get("/", handleHomePage);
 
-module.exports = router
+router.get("/redirect/:shortId", handleRedirectURL);
+
+module.exports = router;
